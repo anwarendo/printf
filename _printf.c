@@ -35,8 +35,7 @@ int _printf(const char *format, ...)
 			{
 				i++;
 				s = va_arg(ap, char *);
-				do
-				{
+				do {
 					_putchar(*s);
 					c_cnt++;
 				} while (*s++ != '\0');

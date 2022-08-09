@@ -8,25 +8,47 @@
 int _printf(const char *format, ...)
 {
 	va_list ap;
-/*	char c;
+	char c;
 	char *s;
-*/	int c_count;
+	int i;
+	int c_cnt;
 
 	/* variable argument start i.e the "..." on the argument */
 	va_start(ap, format);
-	printf("%s", format);
-	c_count = 0;
-/*
-	switch (*format++)
+	i = 0;
+	c_cnt = 0;
+	while (format[i] != '\0')
 	{
-	case 'c':
-		c = (char) va_arg(ap, int);
-		break;
-	case 's':
-		s = va_arg(ap, char *);
-		break;
+		if (format[i] == '%')
+		{
+			i++;
+			if (format[i] == '%')
+				_putchar('%');
+			if (format[i] == 'c')
+			{
+				i++;
+				c = (char) va_arg(ap, int);
+				_putchar(c);
+				c_cnt++;
+			}
+			else if (format[i] == 's')
+			{
+				i++;
+				s = va_arg(ap, char *);
+				do
+				{
+					_putchar(*s);
+					c_cnt++;
+				} while (*s++ != '\0');
+			}
+		}
+		else
+		{
+			_putchar(format[i]);
+			i++;
+			c_cnt++;
+		}
 	}
-*/
 	va_end(ap);
-	return (c_count);
+	return (c_cnt);
 }

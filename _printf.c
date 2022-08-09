@@ -23,8 +23,8 @@ int _printf(const char *format, ...)
 		{
 			i++;
 			if (format[i] == '%')
-				_putchar('%');
-			if (format[i] == 'c')
+				continue;
+			else if (format[i] == 'c')
 			{
 				i++;
 				c = (char) va_arg(ap, int);
@@ -40,6 +40,11 @@ int _printf(const char *format, ...)
 					_putchar(*s);
 					c_cnt++;
 				} while (*s++ != '\0');
+			}
+			else
+			{
+				_putchar('%');
+				c_cnt++;
 			}
 		}
 		else

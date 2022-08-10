@@ -15,7 +15,6 @@ int _printf(const char *format, ...)
 	int sign;
 	char *dstr;
 	int dsize;
-	int i_i;
 	int i;
 	int j;
 	int c_cnt;
@@ -46,7 +45,7 @@ int _printf(const char *format, ...)
 					c_cnt++;
 				} while (*s++ != '\0');
 			}
-			else if (format[i] == 'd')
+			else if (format[i] == 'd' || format[i] == 'i')
 			{
 				i++;
 				sign = 1;
@@ -56,30 +55,32 @@ int _printf(const char *format, ...)
 				d = sign * d;
 				dsize = 0;
 				d1 = d;
-				while (d1 > 0)
+				while (d1  > 0)
 				{
 					dsize++;
 					d1 = d1 / 10;
 				}
+
 				dstr = malloc(dsize);
 				if (dstr)
 				{
 					d1 = d;
-					while (dsize >= 0)
+					j = dsize - 1;
+					while (j >= 0)
 					{
-						dstr[dsize] = d1 % 10;
-						dsize--;
+						dstr[j] = (d1 % 10) + '0';
+						j--;
 						d1 = d1 / 10;
 					}
 
-					j = 0;
+					if (sign < 0)
+					{
+						_putchar('-');
+						c_cnt++;
+					}
+
 					while (j <= dsize)
 					{
-						if (sign < 0)
-						{
-							_putchar('-');
-							c_cnt++;
-						}
 						_putchar(dstr[j]);
 						j++;
 						c_cnt++;
@@ -87,14 +88,7 @@ int _printf(const char *format, ...)
 				}
 				free(dstr);
 			}
-			else if (format[i] == 'i')
-			{
-				i++;
-				i_i = 3;
-				_putchar(i_i + '0');
-				i_i = 9;
-				_putchar(i_i + '0');
-			}
+
 			else
 			{
 				_putchar('%');

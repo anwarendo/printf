@@ -46,7 +46,7 @@ else if (format[i] == 's')
 					c_cnt++;
 				} while (*s++ != '\0');
 			}
-                        This section is for Task 1
+                       /* This section is for Task 1 */
 			else if (format[i] == 'd' || format[i] == 'i')
 			{
 				i++;

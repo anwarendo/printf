@@ -10,10 +10,16 @@ int _printf(const char *format, ...)
 	va_list ap;
 	char c;
 	char *s;
+	int d;
+	int d1;
+	int sign;
+	char *dstr;
+	int dsize;
+	int i_i;
 	int i;
+	int j;
 	int c_cnt;
 
-	/* variable argument start i.e the "..." on the argument */
 	va_start(ap, format);
 	i = 0;
 	c_cnt = 0;
@@ -39,6 +45,55 @@ int _printf(const char *format, ...)
 					_putchar(*s);
 					c_cnt++;
 				} while (*s++ != '\0');
+			}
+			else if (format[i] == 'd')
+			{
+				i++;
+				sign = 1;
+				d = va_arg(ap, int);
+				if (d < 0)
+					sign = -1 * sign;
+				d = sign * d;
+				dsize = 0;
+				d1 = d;
+				while (d1 > 0)
+				{
+					dsize++;
+					d1 = d1 / 10;
+				}
+				dstr = malloc(dsize);
+				if (dstr)
+				{
+					d1 = d;
+					while (dsize >= 0)
+					{
+						dstr[dsize] = d1 % 10;
+						dsize--;
+						d1 = d1 / 10;
+					}
+
+					j = 0;
+					while (j <= dsize)
+					{
+						if (sign < 0)
+						{
+							_putchar('-');
+							c_cnt++;
+						}
+						_putchar(dstr[j]);
+						j++;
+						c_cnt++;
+					}
+				}
+				free(dstr);
+			}
+			else if (format[i] == 'i')
+			{
+				i++;
+				i_i = 3;
+				_putchar(i_i + '0');
+				i_i = 9;
+				_putchar(i_i + '0');
 			}
 			else
 			{
